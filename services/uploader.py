@@ -16,4 +16,6 @@ class Uploader:
     def upload_photo_partniors(instance, filename):
         return f" partniors/{filename}" 
 
-
+    @staticmethod
+    def upload_photo_blog(instance, filename):
+        return f" blog/{filename}" 

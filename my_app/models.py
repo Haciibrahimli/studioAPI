@@ -15,18 +15,7 @@ SOCIAL_CHOICES = (
     ("tiktok", "Tiktok")
 )
 
-User = get_user_model()
 
-
-
-COUNTRY_CHOICES = (
-    ("usa", "Amerika"),
-    ("az", "Azerbaijan"),
-    ("eu", "Europa"),
-    ("as", "Asia"),
-    
-    
-)
 
 # User = get_user_model()
 
@@ -35,12 +24,12 @@ COUNTRY_CHOICES = (
 class About(DateMixin):
     subject1 = models.TextField(verbose_name = 'subject')
     image1 = models.ImageField(upload_to=Uploader.upload_photo_about,null=True,blank=True)
-    # slogan 
+    slogan = models.ImageField(upload_to=Uploader.upload_photo_about,null=True,blank=True)
     subject2 = models.TextField(verbose_name = 'subject')
     image2 = models.ImageField(upload_to=Uploader.upload_photo_about,null=True,blank=True)
 
     def __str__(self):
-        return self.name
+        return self.subject1    
 
     class Meta:
      ordering = ('-created_at',)
@@ -60,12 +49,12 @@ class Team(DateMixin):
 
       class Meta:
        ordering = ('-created_at',)
-       verbose_name = 'reng'
-       verbose_name_plural = 'rengler'
+       verbose_name = 'team'
+       verbose_name_plural = 'teams'
 
 
 class OurServices(SlugMixin, DateMixin):
-    name = models.TextField(verbose_name = 'mehsulun olcusu')
+    name = models.TextField(verbose_name = 'adi')
     text = models.TextField(verbose_name = 'metn')
 
     def __str__(self):
@@ -73,8 +62,8 @@ class OurServices(SlugMixin, DateMixin):
 
     class Meta:
        ordering = ('-created_at',)
-       verbose_name = 'olcu'
-       verbose_name_plural = 'olculer'
+       verbose_name = 'bizim xidmet'
+       verbose_name_plural = 'bizim xidmetler'
 
 
     def save(self, *args, **kwargs):
@@ -85,24 +74,6 @@ class OurServices(SlugMixin, DateMixin):
  
 
 
-class Projects(SlugMixin, DateMixin):
-     name = models.CharField(max_length = 255,verbose_name = 'mehsulun adi')
-     image = models.ImageField(upload_to=Uploader.upload_photo_projects,null=True,blank=True)
-    
-
-     def __str__(self):
-        return self.name
-
-     class Meta:
-       ordering = ('-created_at',)
-       verbose_name = 'mehsul'
-       verbose_name_plural = 'mehsullar'
-
-
-     def save(self, *args, **kwargs):
-        if not self.slug:
-         self.slug = Generator.create_slug_shortcode(size=10, model_=Projects)
-        super(Projects, self).save(*args, **kwargs)
 
     
 
@@ -120,7 +91,7 @@ class Partniors(DateMixin):
        verbose_name_plural = 'partnior sekiller'
 
 
-class Contact(SlugMixin, DateMixin):
+class Contact(SlugMixin, DateMixin): #create
        
     name = models.CharField(max_length=255,verbose_name='ad ve soyad')
     email = models.CharField(max_length=255,verbose_name='email adress')
@@ -144,35 +115,6 @@ class Contact(SlugMixin, DateMixin):
         if not self.slug:
          self.slug = Generator.create_slug_shortcode(size=10, model_=Contact)
         super(Contact, self).save(*args, **kwargs)
-
-
-
-class Checkout(SlugMixin, DateMixin):
-       name = models.CharField(max_length = 255,verbose_name = 'ad')
-       surname = models.CharField(max_length = 255,verbose_name = 'soyad')
-       email = models.CharField(max_length = 255,verbose_name = 'email')
-       phone = models.CharField(max_length = 255, verbose_name = 'telefon')
-       adress1 = models.CharField(max_length = 255, verbose_name = 'adress 1')
-       adress2 = models.CharField(max_length = 255, verbose_name = 'adress 2')
-       country = models.CharField(max_length=255,verbose_name='olke adlari',choices=COUNTRY_CHOICES)
-       city = models.CharField(max_length = 255,verbose_name = 'sheher adi')
-       state  = models.CharField(max_length = 255,verbose_name = 'dovlet')
-       zipcode = models.CharField(max_length = 255, verbose_name = 'olke kodu')
-
-       def __str__(self):
-         return self.name
-    
-       class Meta:
-        ordering = ('name',)
-        verbose_name = 'checkout'
-        verbose_name_plural = 'checkout'
-
-
-       def save(self, *args, **kwargs):
-        if not self.slug:
-         self.slug = Generator.create_slug_shortcode(size=10, model_= Checkout)
-        super(Checkout, self).save(*args, **kwargs)
-
 
 
 class SosialMedia(DateMixin):
@@ -208,3 +150,63 @@ class MainDetails(SlugMixin, DateMixin):
         if not self.slug:
          self.slug = Generator.create_slug_shortcode(size=10, model_=MainDetails)
         super(MainDetails, self).save(*args, **kwargs)
+
+
+class BlogCategory(DateMixin ):
+    name = models.CharField(max_length = 255,verbose_name = 'adi')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ("-created_at", )
+        verbose_name = "blog category"
+        verbose_name_plural = "blog categories"
+
+
+class Blog(DateMixin,SlugMixin): #list,create retrive
+        title = models.CharField(max_length = 255,verbose_name = 'blog')
+        image = models.ImageField(upload_to=Uploader.upload_photo_blog,null=True,blank=True)
+        information = models.TextField(verbose_name = 'melumat')
+        user = models.CharField(max_length = 255,verbose_name = 'istifadeci')
+        blog_category = models.ForeignKey(BlogCategory,on_delete=models.SET_NULL, null=True, blank=True)
+
+   
+        def __str__(self):
+          return self.title
+ 
+        class Meta:
+          ordering = ("-created_at", )
+          verbose_name = "blog"
+          verbose_name_plural = "bloglar"
+
+
+        def save(self, *args, **kwargs):
+             if not self.slug:
+              self.slug = Generator.create_slug_shortcode(size=10, model_= Blog)
+             super(Blog, self).save(*args, **kwargs)
+
+class Projects(SlugMixin, DateMixin):
+     name = models.CharField(max_length = 255,verbose_name = 'mehsulun adi')
+     image1 = models.ImageField(upload_to=Uploader.upload_photo_projects,null=True,blank=True)
+     image2 = models.ImageField(upload_to=Uploader.upload_photo_projects,null=True,blank=True)
+     project_category = models.ForeignKey(BlogCategory,on_delete=models.SET_NULL, null=True, blank=True)
+     text = models.TextField(verbose_name = 'metn',null=True,blank=True)
+     image3 = models.ImageField(upload_to=Uploader.upload_photo_projects,null=True,blank=True)
+     image4 = models.ImageField(upload_to=Uploader.upload_photo_projects,null=True,blank=True)
+     
+    
+
+     def __str__(self):
+        return self.name
+
+     class Meta:
+       ordering = ('-created_at',)
+       verbose_name = 'project'
+       verbose_name_plural = 'projects'
+
+
+     def save(self, *args, **kwargs):
+        if not self.slug:
+         self.slug = Generator.create_slug_shortcode(size=10, model_=Projects)
+        super(Projects, self).save(*args, **kwargs)
