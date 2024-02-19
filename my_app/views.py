@@ -26,6 +26,11 @@ class OurServicesListAPIView(ListAPIView):
     queryset = OurServices.objects.all()
     serializer_class = OurServicesSerializer
     permission_classes = [AllowAny]
+
+class OurServicesRetrieveAPIView(RetrieveAPIView):
+    queryset = OurServices.objects.all()
+    serializer_class = OurServicesSerializer
+    lookup_field = 'id'
    
 
 class PartniorsListAPIView(ListAPIView):
@@ -49,11 +54,6 @@ class BlogCreateAPIView(CreateAPIView):
     serializer_class = BlogSerializer
     permission_classes = [AllowAny]
 
-class BlogDestroyAPIView(DestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
-    lookup_field = 'id'
-
 
 class BlogRetrieveAPIView(RetrieveAPIView):
     queryset = Blog.objects.all()
@@ -68,10 +68,10 @@ class SosialMediaUpdateAPIView(UpdateAPIView):
 
 
 
-class MainDetailsRetrieveAPIView(RetrieveAPIView):
+class MainDetailsListAPIView(ListAPIView):
     queryset = MainDetails.objects.all()
     serializer_class = MainDetailsSerializer
-    lookup_field = 'id'
+
 
 
 class ProjectsListAPIView(ListAPIView): #CreateApi ce ListApi de  "id" lazim deyil
