@@ -72,13 +72,6 @@ class OurServices(SlugMixin, DateMixin):
        super(OurServices, self).save(*args, **kwargs)
 
  
-
-
-
-    
-
- 
-        
 class Partniors(DateMixin):
       image = models.ImageField(upload_to=Uploader.upload_photo_partniors,null=True,blank=True)
       

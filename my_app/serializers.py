@@ -9,28 +9,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-class CategorySerializer(serializers.ModelSerializer):
+class AboutSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = About
         fields = "__all__"
 
 
-class ColorSerializer(serializers.ModelSerializer):
+class TeamSerializer(serializers.ModelSerializer):
   
     class Meta:
-        model = Color
+        model = Team
         fields = "__all__"
 
-class SizeSerializer(serializers.ModelSerializer):
+class OurServicesSerializer(serializers.ModelSerializer):
   
     class Meta:
-        model = Size
-        fields = "__all__"
-
-class ProductSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = Product
+        model = OurServices
         fields = "__all__"
 
 class PartniorsSerializer(serializers.ModelSerializer):
@@ -39,44 +33,13 @@ class PartniorsSerializer(serializers.ModelSerializer):
         model = Partniors
         fields = "__all__"
 
+
 class ContactSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = Contact
         fields = "__all__"
 
-
-class CheckoutSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = Checkout
-        fields = "__all__"
-
-class ProductImageSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = ProductImage
-        fields = "__all__"
-
-class CommentSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = Comment
-        fields = "__all__"
-
-
-class SpecialOfferSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = SpecialOffer 
-        fields = "__all__"
-
-
-class BasketSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = Basket
-        fields = "__all__"
 
 
 class SosialMediaSerializer(serializers.ModelSerializer):
@@ -90,4 +53,22 @@ class MainDetailsSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = MainDetails
+        fields = "__all__"
+
+class BlogCategorySerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = BlogCategory
+        fields = "__all__"
+
+class BlogSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = Blog
+        fields = "__all__"
+
+class ProjectsSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = Projects
         fields = "__all__"
