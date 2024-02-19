@@ -53,6 +53,12 @@ class BlogCreateAPIView(CreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     permission_classes = [AllowAny]
+    
+class BlogListAPIView(ListAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    permission_classes = [AllowAny]
+    # --
 
 
 class BlogRetrieveAPIView(RetrieveAPIView):
@@ -79,3 +85,8 @@ class ProjectsListAPIView(ListAPIView): #CreateApi ce ListApi de  "id" lazim dey
     serializer_class = ProjectsSerializer
     permission_classes = [AllowAny]
    
+class ProjectsRetrieveAPIView(RetrieveAPIView): 
+    queryset = Projects.objects.all()
+    serializer_class = ProjectsSerializer
+    lookup_field = 'id'
+    

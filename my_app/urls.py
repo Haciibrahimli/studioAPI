@@ -13,4 +13,7 @@ urlpatterns = [
     path("blog/retrieve/<id>/'",BlogRetrieveAPIView.as_view(), name='blog-retrieve'),
     path("sosial/media",SosialMediaUpdateAPIView.as_view(), name='sosial-media'),
     path("main/detail",MainDetailsListAPIView.as_view(), name='main-detail'),
+    path("projects/",ProjectsListAPIView.as_view(), name='projects-list'),
+    path("projects/detail/<id>",ProjectsRetrieveAPIView.as_view(), name='projects-detail'),
+
 ]
