@@ -4,10 +4,14 @@ from rest_framework.generics import (ListAPIView, RetrieveAPIView,
                                      ListCreateAPIView, CreateAPIView,
                                      UpdateAPIView,DestroyAPIView)
 
+from my_app.filters import BlogFilter
+from django_filters.rest_framework.backends import DjangoFilterBackend
+from my_app.filters import django_filters
 
 from my_app.models import *
 from my_app.serializers import *
 from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -58,7 +62,8 @@ class BlogListAPIView(ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     permission_classes = [AllowAny]
-    # --
+    filter_backends = (DjangoFilterBackend)
+    filterset_class = BlogFilter
 
 
 class BlogRetrieveAPIView(RetrieveAPIView):
@@ -80,7 +85,7 @@ class MainDetailsListAPIView(ListAPIView):
 
 
 
-class ProjectsListAPIView(ListAPIView): #CreateApi ce ListApi de  "id" lazim deyil
+class ProjectsListAPIView(ListAPIView): 
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
     permission_classes = [AllowAny]
