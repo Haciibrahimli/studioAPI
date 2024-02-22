@@ -6,7 +6,7 @@ from rest_framework.generics import (ListAPIView, RetrieveAPIView,
 
 from my_app.filters import BlogFilter
 from django_filters.rest_framework.backends import DjangoFilterBackend
-from my_app.filters import django_filters
+
 
 from my_app.models import *
 from my_app.serializers import *
@@ -62,7 +62,7 @@ class BlogListAPIView(ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     permission_classes = [AllowAny]
-    filter_backends = (DjangoFilterBackend)
+    filter_backends = (DjangoFilterBackend,)
     filterset_class = BlogFilter
 
 
