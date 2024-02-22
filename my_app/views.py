@@ -13,6 +13,7 @@ from my_app.serializers import *
 from django.contrib.auth import get_user_model
 
 
+
 User = get_user_model()
 
 
@@ -42,10 +43,11 @@ class PartniorsListAPIView(ListAPIView):
     serializer_class = PartniorsSerializer
     lookup_field = 'id'
 
-class ContactListView(ListAPIView):
+
+class ContactCreateView(CreateAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-
+    permission_classes = [AllowAny]
 
 class BlogCategoryListAPIView(ListAPIView): 
     queryset = BlogCategory.objects.all()
