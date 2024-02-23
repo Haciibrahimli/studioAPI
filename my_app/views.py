@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import (ListAPIView, RetrieveAPIView,
                                      ListCreateAPIView, CreateAPIView,
@@ -11,10 +11,24 @@ from django_filters.rest_framework.backends import DjangoFilterBackend
 from my_app.models import *
 from my_app.serializers import *
 from django.contrib.auth import get_user_model
+# -->Translate imports
+from django.urls import reverse, translate_url
+from django.conf import settings
 
 
 
 User = get_user_model()
+
+def set_language(request, lang_code): # translate
+    referer = request.META.get("HTTP_REFERER")
+
+    if referer:
+        response = redirect(translate_url(referer, lang_code))
+    else:
+        response = redirect(reverse('home'))
+
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+    return response
 
 
 class AboutListAPIView(ListAPIView):

@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
+from my_app.views import set_language
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +35,18 @@ urlpatterns = [
         template_name='docs.html',
         extra_context={'schema_url': 'api_schema'}
     ), name='swagger-ui'),
+     path('set_language/<str:lang_code>/', set_language, name="set_lang"), # translate
+  
+   
+
+
+]
+
+
+  # translate
+
+urlpatterns = [   
+
+    *i18n_patterns(*urlpatterns, prefix_default_language=False), 
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
